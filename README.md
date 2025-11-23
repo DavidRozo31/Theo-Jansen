@@ -246,8 +246,8 @@ python verificar_mecanismo.py
 - [x] Diseño CAD parcial en SolidWorks (12 piezas)
 
 ### 🔄 En Progreso
-- [ ] Análisis cinemático completo en MATLAB
-- [ ] Análisis cinético en MATLAB
+- [x] Análisis cinemático completo en MATLAB
+- [x] Análisis cinético en MATLAB
 - [ ] Diseño CAD completo (ensambles y planos)
 - [ ] Informe técnico (secciones pendientes)
 
@@ -335,11 +335,29 @@ El simulador implementa el **método de circuitos vectoriales cerrados** derivan
 
 ### Análisis Cinético (Newton-Euler)
 
-Pendiente de implementación en MATLAB:
-- Diagramas de cuerpo libre para cada eslabón
-- Ecuaciones de equilibrio dinámico
-- Fuerzas de reacción en articulaciones
-- Torque requerido en motor
+Implementado en MATLAB (`main_cinetica.m`) con las siguientes características:
+
+- **Modelo de masa**: Masa total del mecanismo (300 g) distribuida uniformemente
+- **Fuerzas consideradas**: Fuerza inercial + peso (g = 981 cm/s²)
+- **Torque motor**: Calculado como F_total × r_OA
+- **Especificaciones motor**: DC caja reductora amarilla (200 rpm), 2A máximo
+- **Baterías**: 2x 3.7V 2200mAh recargables (7.4V en serie)
+
+#### Resultados Cinéticos (8 patas con desfase 45°)
+
+| Parámetro | Valor Máximo | Valor Mínimo | Unidad |
+|-----------|--------------|--------------|--------|
+| Fuerza en articulaciones | 121.60 | 0.00 | N |
+| Torque requerido en motor | 12160.00 | 0.00 | N·cm |
+| Potencia máxima motor | 14.80 | - | W |
+| Energía total baterías | 16.34 | - | Wh |
+| Autonomía estimada | 132.00 | - | minutos |
+
+**Notas importantes**:
+- Valores teóricos basados en masa total concentrada
+- Torque máximo ocurre en posiciones de máxima fuerza
+- Autonomía calculada asumiendo consumo constante a 2A
+- Validación experimental requerida para ajuste de valores reales
 
 ## 📚 Referencias
 
