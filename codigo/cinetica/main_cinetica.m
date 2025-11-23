@@ -41,28 +41,54 @@ fuerzas_N = fuerzas * 1e-3 * 1e-2; % g·cm/s^2 a N (1 g = 1e-3 kg, 1 cm = 1e-2 m
 torques_Ncm = torques * 1e-3;      % g·cm^2/s^2 a N·cm (1 g·cm^2/s^2 = 1e-3 N·cm)
 
 % Graficar fuerza total en N
-figure;
+colores = ['r','b','g','m','c','y','k','r--','b--','g--'];
+fig1 = figure('Position', [100, 100, 1200, 800]);
 hold on;
 for i = 1:n_patas
-    plot(theta_OA, fuerzas_N(:,i), 'LineWidth', 2);
+    color_idx = mod(i-1, length(colores)) + 1;
+    plot(theta_OA, fuerzas_N(:,i), colores(color_idx), 'LineWidth', 2);
 end
-xlabel('\theta_{OA} [°]'); ylabel('Fuerza total [N]');
-title('Fuerza total en articulaciones (8 patas)');
-grid on;
-legend(arrayfun(@(x) sprintf('Pata %d',x), 1:n_patas, 'UniformOutput', false));
+xlabel('\theta_{OA} [°]', 'FontSize', 12, 'FontWeight', 'bold');
+ylabel('Fuerza total [N]', 'FontSize', 12, 'FontWeight', 'bold');
+title('Fuerza total en articulaciones (8 patas)', 'FontSize', 14, 'FontWeight', 'bold');
+grid on; grid minor;
+legend(arrayfun(@(x) sprintf('Pata %d',x), 1:n_patas, 'UniformOutput', false), 'Location', 'best');
 hold off;
+saveas(fig1, 'fuerzas_articulaciones.png');
+print(fig1, 'fuerzas_articulaciones.png', '-dpng', '-r300');
 
 % Graficar torque requerido en el motor en N·cm
-figure;
+fig2 = figure('Position', [100, 100, 1200, 800]);
 hold on;
 for i = 1:n_patas
-    plot(theta_OA, torques_Ncm(:,i), 'LineWidth', 2);
+    color_idx = mod(i-1, length(colores)) + 1;
+    plot(theta_OA, torques_Ncm(:,i), colores(color_idx), 'LineWidth', 2);
 end
-xlabel('\theta_{OA} [°]'); ylabel('Torque motor [N·cm]');
-title('Torque requerido en el motor (8 patas)');
-grid on;
-legend(arrayfun(@(x) sprintf('Pata %d',x), 1:n_patas, 'UniformOutput', false));
+xlabel('\theta_{OA} [°]', 'FontSize', 12, 'FontWeight', 'bold');
+ylabel('Torque motor [N·cm]', 'FontSize', 12, 'FontWeight', 'bold');
+title('Torque requerido en el motor (8 patas)', 'FontSize', 14, 'FontWeight', 'bold');
+grid on; grid minor;
+legend(arrayfun(@(x) sprintf('Pata %d',x), 1:n_patas, 'UniformOutput', false), 'Location', 'best');
 hold off;
+saveas(fig2, 'torque_motor.png');
+print(fig2, 'torque_motor.png', '-dpng', '-r300');
+
+% Graficar potencia instantánea requerida
+potencia_inst = torques_Ncm .* repmat(omega_OA * 180/pi * 2*pi/60, 1, n_patas); % W (considerando omega en rad/s)
+fig3 = figure('Position', [100, 100, 1200, 800]);
+hold on;
+for i = 1:n_patas
+    color_idx = mod(i-1, length(colores)) + 1;
+    plot(theta_OA, potencia_inst(:,i), colores(color_idx), 'LineWidth', 2);
+end
+xlabel('\theta_{OA} [°]', 'FontSize', 12, 'FontWeight', 'bold');
+ylabel('Potencia [W]', 'FontSize', 12, 'FontWeight', 'bold');
+title('Potencia instantánea requerida (8 patas)', 'FontSize', 14, 'FontWeight', 'bold');
+grid on; grid minor;
+legend(arrayfun(@(x) sprintf('Pata %d',x), 1:n_patas, 'UniformOutput', false), 'Location', 'best');
+hold off;
+saveas(fig3, 'potencia_instantanea.png');
+print(fig3, 'potencia_instantanea.png', '-dpng', '-r300');
 
 % Estimación de consumo eléctrico del motor
 V_bateria = 3.7 * 2; % V (dos baterías en serie)

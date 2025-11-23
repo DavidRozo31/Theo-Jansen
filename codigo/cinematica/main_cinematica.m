@@ -47,42 +47,56 @@ for i = 1:n_patas
 end
 
 % Graficar trayectorias de las 8 patas
-fig = figure;
+colores = ['r','b','g','m','c','y','k','r--','b--','g--'];
+fig1 = figure('Position', [100, 100, 1200, 800]);
 hold on;
 for i = 1:n_patas
-    plot(trayectorias_G(:,1,i), trayectorias_G(:,2,i), 'LineWidth', 2);
+    color_idx = mod(i-1, length(colores)) + 1;
+    plot(trayectorias_G(:,1,i), trayectorias_G(:,2,i), colores(color_idx), 'LineWidth', 2);
 end
-xlabel('X [cm]'); ylabel('Y [cm]');
-title('Trayectorias de las 8 patas (desfase 45°)');
-grid on;
-legend(arrayfun(@(x) sprintf('Pata %d',x), 1:n_patas, 'UniformOutput', false));
+xlabel('X [cm]', 'FontSize', 12, 'FontWeight', 'bold');
+ylabel('Y [cm]', 'FontSize', 12, 'FontWeight', 'bold');
+title('Trayectorias de las 8 patas (desfase 45°)', 'FontSize', 14, 'FontWeight', 'bold');
+grid on; grid minor;
+legend(arrayfun(@(x) sprintf('Pata %d',x), 1:n_patas, 'UniformOutput', false), 'Location', 'best');
+axis equal;
 hold off;
+saveas(fig1, 'trayectorias_patas.png');
+print(fig1, 'trayectorias_patas.png', '-dpng', '-r300');
 
 % Graficar velocidad lineal de G (módulo)
-figure;
+fig2 = figure('Position', [100, 100, 1200, 800]);
 hold on;
 for i = 1:n_patas
     v_mod = sqrt(sum(velocidades_G(:,:,i).^2,2));
-    plot(theta_OA, v_mod, 'LineWidth', 2);
+    color_idx = mod(i-1, length(colores)) + 1;
+    plot(theta_OA, v_mod, colores(color_idx), 'LineWidth', 2);
 end
-xlabel('\theta_{OA} [°]'); ylabel('|v_G| [cm/s]');
-title('Velocidad lineal del punto G (8 patas)');
-grid on;
-legend(arrayfun(@(x) sprintf('Pata %d',x), 1:n_patas, 'UniformOutput', false));
+xlabel('\theta_{OA} [°]', 'FontSize', 12, 'FontWeight', 'bold');
+ylabel('|v_G| [cm/s]', 'FontSize', 12, 'FontWeight', 'bold');
+title('Velocidad lineal del punto G (8 patas)', 'FontSize', 14, 'FontWeight', 'bold');
+grid on; grid minor;
+legend(arrayfun(@(x) sprintf('Pata %d',x), 1:n_patas, 'UniformOutput', false), 'Location', 'best');
 hold off;
+saveas(fig2, 'velocidad_patas.png');
+print(fig2, 'velocidad_patas.png', '-dpng', '-r300');
 
 % Graficar aceleración lineal de G (módulo)
-figure;
+fig3 = figure('Position', [100, 100, 1200, 800]);
 hold on;
 for i = 1:n_patas
     a_mod = sqrt(sum(aceleraciones_G(:,:,i).^2,2));
-    plot(theta_OA, a_mod, 'LineWidth', 2);
+    color_idx = mod(i-1, length(colores)) + 1;
+    plot(theta_OA, a_mod, colores(color_idx), 'LineWidth', 2);
 end
-xlabel('\theta_{OA} [°]'); ylabel('|a_G| [cm/s^2]');
-title('Aceleración lineal del punto G (8 patas)');
-grid on;
-legend(arrayfun(@(x) sprintf('Pata %d',x), 1:n_patas, 'UniformOutput', false));
+xlabel('\theta_{OA} [°]', 'FontSize', 12, 'FontWeight', 'bold');
+ylabel('|a_G| [cm/s^2]', 'FontSize', 12, 'FontWeight', 'bold');
+title('Aceleración lineal del punto G (8 patas)', 'FontSize', 14, 'FontWeight', 'bold');
+grid on; grid minor;
+legend(arrayfun(@(x) sprintf('Pata %d',x), 1:n_patas, 'UniformOutput', false), 'Location', 'best');
 hold off;
+saveas(fig3, 'aceleracion_patas.png');
+print(fig3, 'aceleracion_patas.png', '-dpng', '-r300');
 
 % === RESUMEN PARA INFORME ===
 xG = trayectorias_G(:,1,:); yG = trayectorias_G(:,2,:);

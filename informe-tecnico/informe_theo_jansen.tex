@@ -1356,47 +1356,47 @@ Valores extremos de aceleración:
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.45\textwidth]{figures/simulacion_torque_detallado.png}
-\caption{Torque instantáneo requerido en el eje motor. Los picos negativos corresponden a la energía almacenada en el sistema que asiste al motor durante ciertas fases del ciclo.}
+\includegraphics[width=0.45\textwidth]{figures/torque_motor_8patas.png}
+\caption{Torque requerido en el motor para las 8 patas. Los valores altos (121.60 N·m) reflejan las fuerzas dinámicas del sistema completo.}
 \label{fig:sim_torque}
 \end{figure}
 
-Análisis estadístico del torque:
+Análisis estadístico del torque para configuración de 8 patas:
 
 \begin{table}[H]
 \centering
-\caption{Estadísticas del Torque del Motor}
+\caption{Estadísticas del Torque del Motor (8 Patas)}
 \begin{tabular}{|l|c|}
 \hline
 \textbf{Métrica} & \textbf{Valor} \\
 \hline
-Torque máximo positivo & 2.35 N·m \\
-Torque máximo negativo & -1.12 N·m \\
-Torque RMS & 0.87 N·m \\
-Torque promedio & 0.65 N·m \\
-Desviación estándar & 0.58 N·m \\
+Torque máximo & 121.60 N·m (12,160 N·cm) \\
+Torque mínimo & 0 N·m \\
+Potencia máxima & 14.80 W \\
+Energía total baterías & 16.34 Wh \\
+Autonomía estimada & 132 minutos \\
 \hline
 \end{tabular}
 \end{table}
 
-El torque negativo indica que el mecanismo devuelve energía al motor durante ciertas fases, comportamiento típico de sistemas inerciales con almacenamiento de energía cinética.
+Los valores elevados de torque se deben a la masa total del mecanismo (300 g) y las aceleraciones dinámicas durante el movimiento de las 8 patas.
 
-\subsubsection{Potencia Instantánea}
+\subsubsection{Potencia y Consumo Energético}
 
-La potencia instantánea se calcula como:
+La potencia máxima se calcula considerando el torque pico y la velocidad angular del motor:
 
 \begin{equation}
-P(t) = T(t) \cdot \omega_2
+P_{max} = T_{max} \cdot \omega_{motor} = 121.60 \cdot 0.122 = 14.80 \text{ W}
 \end{equation}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.45\textwidth]{figures/simulacion_potencia.png}
-\caption{Potencia mecánica instantánea en el eje motor. La potencia promedio de 5.47 W es el consumo real del mecanismo.}
+\includegraphics[width=0.45\textwidth]{figures/potencia_motor_8patas.png}
+\caption{Potencia mecánica requerida. La potencia máxima de 14.80 W determina el dimensionamiento del motor y baterías.}
 \label{fig:sim_potencia}
 \end{figure}
 
-Resultados energéticos:
+Resultados energéticos para motor DC caja reductora amarilla (200 rpm):
 
 \begin{table}[H]
 \centering
