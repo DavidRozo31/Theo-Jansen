@@ -537,8 +537,19 @@ La simulación genera la trayectoria del punto de contacto G para todas las pata
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.45\textwidth]{figures/trayectoria_pie_8patas.png}
-\caption{Trayectorias de los 8 pies durante un ciclo completo. Cada pata tiene un desfase de 45° para distribución uniforme de carga.}
+\includegraphics[width=0.8\textwidth]{simulacion.png.jpg}
+\caption{Simulación interactiva del mecanismo Theo Jansen mostrando la trayectoria del punto G. Desarrollado en Python con Matplotlib para visualización en tiempo real.}
+\label{fig:simulacion}
+\end{figure}
+
+\subsubsection{Trayectoria del Pie}
+
+La simulación genera la trayectoria del punto de contacto G para todas las patas durante un ciclo completo:
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{../codigo/cinematica/trayectorias_patas.png}
+\caption{Trayectorias de las 8 patas durante un ciclo completo. Cada pata tiene un desfase de 45° para distribución uniforme de carga.}
 \label{fig:trayectoria}
 \end{figure}
 
@@ -556,8 +567,8 @@ Características de la trayectoria (valores representativos):
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.45\textwidth]{figures/velocidad_pie_8patas.png}
-\caption{Velocidades de los 8 pies. Las velocidades pico alcanzan 94.25 cm/s durante las fases de balanceo.}
+\includegraphics[width=0.8\textwidth]{../codigo/cinematica/velocidad_patas.png}
+\caption{Velocidades de las 8 patas. Las velocidades pico alcanzan valores significativos durante las fases de balanceo.}
 \label{fig:velocidad}
 \end{figure}
 
@@ -572,8 +583,8 @@ Velocidades características:
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.45\textwidth]{figures/aceleracion_pie_8patas.png}
-\caption{Aceleraciones de los 8 pies. Los picos de aceleración (39,552 cm/s²) ocurren durante transiciones críticas.}
+\includegraphics[width=0.8\textwidth]{../codigo/cinematica/aceleracion_patas.png}
+\caption{Aceleraciones de las 8 patas. Los picos de aceleración ocurren durante transiciones críticas del movimiento.}
 \label{fig:aceleracion}
 \end{figure}
 
@@ -874,7 +885,7 @@ El análisis cinético se realizó en MATLAB considerando un mecanismo de 8 pata
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.45\textwidth]{figures/torque_motor_8patas.png}
+\includegraphics[width=0.8\textwidth]{../codigo/cinetica/torque_motor.png}
 \caption{Torque requerido en el motor para 8 patas con desfase de 45°. Los picos corresponden a posiciones de máxima carga durante el ciclo de marcha.}
 \label{fig:torque}
 \end{figure}
@@ -888,11 +899,28 @@ Resultados numéricos para configuración de 8 patas:
 \item Autonomía estimada: 132 minutos @ 2A consumo máximo
 \end{itemize}
 
+\subsubsection{Potencia Instantánea}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{../codigo/cinetica/potencia_instantanea.png}
+\caption{Potencia instantánea requerida por el motor para las 8 patas. La potencia varía significativamente durante el ciclo de marcha.}
+\label{fig:potencia}
+\end{figure}
+
+Análisis de potencia:
+\begin{itemize}
+\item Potencia máxima instantánea: 14.80 W
+\item Potencia promedio: 7.40 W
+\item Fluctuaciones de potencia: ±50\% durante el ciclo
+\item Consumo energético total: Compatible con baterías de 3.7V 2200mAh
+\end{itemize}
+
 \subsubsection{Fuerzas en Articulaciones}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.45\textwidth]{figures/fuerzas_articulaciones_8patas.png}
+\includegraphics[width=0.8\textwidth]{../codigo/cinetica/fuerzas_articulaciones.png}
 \caption{Fuerza total en articulaciones para las 8 patas. Las fuerzas incluyen componentes inerciales y gravitacionales.}
 \label{fig:fuerzas}
 \end{figure}
