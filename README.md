@@ -20,13 +20,24 @@ Sexto Semestre - 2025
 
 ## 📋 Descripción del Proyecto
 
-Diseño y construcción de un **mecanismo articulado de 8 barras tipo Theo Jansen** que se desplaza mediante un movimiento caminante fluido y estable. El proyecto incluye análisis completo de cinemática, cinética y validación experimental.
+Diseño y construcción de un **mecanismo articulado de 7 barras con 3 puntos fijos** inspirado en los mecanismos de Theo Jansen, que se desplaza mediante un movimiento caminante fluido y estable. El proyecto incluye análisis completo de cinemática mediante ecuaciones dinámicas, cinética y validación experimental.
+
+### Características del Mecanismo
+
+Este mecanismo utiliza una configuración innovadora de **7 eslabones** con **3 puntos de anclaje fijos**:
+- **Punto O (0, 0)**: Anclaje de la manivela motriz
+- **Punto C (-4.3, -1.2)**: Anclaje secundario del circuito inferior
+- **Punto D (-2, 1.3)**: Anclaje del circuito superior (triángulo de la pata)
+
+Esta configuración permite una trayectoria de paso optimizada con mayor estabilidad y control del movimiento.
 
 ### Objetivos
 
-- ✅ Diseñar un mecanismo caminante funcional inspirado en Theo Jansen
-- ✅ Realizar análisis cinemático (posición, velocidad, aceleración)
+- ✅ Diseñar un mecanismo caminante funcional de 7 barras con 3 puntos fijos
+- ✅ Realizar análisis cinemático con ecuaciones dinámicas (circuitos vectoriales)
+- ✅ Calcular velocidades mediante derivación analítica de restricciones
 - ✅ Realizar análisis cinético (fuerzas, torques en articulaciones)
+- ✅ Implementar simulador interactivo con análisis en tiempo real
 - ✅ Fabricar prototipo competitivo con materiales limitados
 - ✅ Validar resultados teóricos mediante pruebas experimentales
 - ✅ Competir en desafío de caminata lineal (1.5m)
@@ -36,19 +47,23 @@ Diseño y construcción de un **mecanismo articulado de 8 barras tipo Theo Janse
 ```
 Theo-Jansen/
 ├── .github/
-│   └── copilot-instructions.md    # Instrucciones para agentes IA
-├── informe-tecnico/                # Documento PDF del informe final
-├── solidos/                        # Archivos CAD SolidWorks
-│   ├── piezas/                    # Componentes individuales (.prt)
-│   ├── ensambles/                 # Ensambles y subensambles (.asm)
-│   └── planos/                    # Dibujos técnicos (.drw)
-├── codigo/                         # Scripts de simulación MATLAB
-│   ├── cinematica/                # Análisis de movimiento
-│   └── cinetica/                  # Análisis de fuerzas
+│   └── copilot-instructions.md       # Instrucciones para agentes IA
+├── informe-tecnico/
+│   └── informe_theo_jansen.tex       # Informe LaTeX (2524 líneas)
+├── solidos/                          # Archivos CAD SolidWorks
+│   ├── piezas/                       # 12 componentes individuales (.SLDPRT)
+│   ├── ensambles/                    # Ensambles y subensambles (.asm)
+│   └── planos/                       # Dibujos técnicos (.drw)
+├── codigo/                           # Scripts de simulación
+│   ├── verificar_mecanismo.py        # ✅ Simulador Python interactivo
+│   ├── cinematica/                   # Análisis cinemático MATLAB
+│   ├── cinetica/                     # Análisis cinético MATLAB
+│   ├── requirements.txt              # Dependencias Python
+│   └── README_SIMULADOR.md           # Documentación del simulador
 ├── miscelaneos/
-│   ├── registro-experimental.xlsx # Datos experimentales
-│   ├── presentacion.pptx          # Presentación del proyecto
-│   └── videos/                    # Demostración del prototipo
+│   ├── registro-experimental.xlsx    # Datos experimentales (pendiente)
+│   ├── presentacion.pptx             # Presentación del proyecto (pendiente)
+│   └── videos/                       # Demostración del prototipo
 └── README.md
 ```
 
@@ -65,17 +80,43 @@ Theo-Jansen/
 | **Tipo de locomoción** | Solo patas articuladas (sin ruedas) |
 | **Estabilidad mínima** | Contacto con suelo ≥75% del ciclo |
 
-### Parámetros del Mecanismo Theo Jansen Clásico
+### Parámetros del Mecanismo (7 Barras, 3 Puntos Fijos)
 
-Proporciones originales (en mm):
-- a = 38.0
-- b = 41.5
-- c = 39.3
-- d = 40.1
-- e = 55.8
-- f = 39.4
-- g = 36.7
-- h = 65.7
+#### Puntos de Anclaje Fijos
+```
+O = (0.0, 0.0)      # Anclaje principal (manivela)
+C = (-4.3, -1.2)    # Anclaje secundario inferior
+D = (-2.0, 1.3)     # Anclaje superior (triángulo pata)
+```
+
+#### Longitudes de Eslabones (cm)
+```
+L_OA = 1.0          # Manivela motriz
+L_AB = 3.0          # Biela principal
+L_BF = 4.34         # Extensión hacia punto F
+L_BC = 2.28         # Eslabón inferior hacia C
+L_DE = 3.8          # Eslabón desde D hacia E
+L_EF = 3.7          # Lado del triángulo (E-F)
+L_FG = 5.65         # Lado del triángulo (F-G)
+L_EG = 9.1          # Base del triángulo (E-G)
+```
+
+#### Circuitos Vectoriales
+
+**Circuito 1 (O-A-B-C)**: Manivela y biela
+```
+r_OA + r_AB + r_BC = r_OC
+```
+
+**Circuito 2 (D-E-F)**: Eslabones flotantes
+```
+r_DE + r_EF = r_DF
+```
+
+**Circuito 3 (E-F-G)**: Triángulo de la pata
+```
+r_EF + r_FG + r_GE = 0
+```
 
 ## 🚀 Metodología
 
@@ -114,10 +155,55 @@ Evaluación según criterios establecidos.
 ## 🛠️ Herramientas Utilizadas
 
 - **CAD**: SolidWorks (modelado 3D y planos)
-- **Simulación**: MATLAB (análisis cinemático y cinético)
-- **Documentación**: LaTeX/Word (informe técnico)
+- **Simulación**: 
+  - Python 3.13+ con Matplotlib (simulador interactivo)
+  - MATLAB (análisis cinemático y cinético)
+- **Documentación**: LaTeX (informe técnico IEEE)
 - **Análisis de datos**: Excel (registro experimental)
 - **Presentación**: PowerPoint
+
+## 💻 Simulador Interactivo Python
+
+El proyecto incluye un **simulador interactivo** implementado en Python con las siguientes características:
+
+### Características Principales
+- ✅ **Análisis cinemático en tiempo real** con ecuaciones dinámicas
+- ✅ **Cálculo de velocidades analíticas** mediante derivación de restricciones vectoriales
+- ✅ **Interfaz oscura profesional** (Dark Mode UI/UX)
+- ✅ **Controles interactivos**:
+  - Slider para ángulo de manivela (0-360°)
+  - TextBox para velocidad angular (0.01-5.0 rad/s)
+  - Botones: Play/Pausa/Reset/Actualizar ω
+- ✅ **Visualización completa**:
+  - Trayectoria del punto de apoyo G
+  - Eslabones con código de colores
+  - Triángulo EFG con relleno semitransparente
+  - Detección de contacto con suelo
+- ✅ **Animación fluida** a 30 FPS
+- ✅ **Información en tiempo real**:
+  - Velocidad angular ω (rad/s)
+  - Velocidad lineal v_G (cm/s)
+  - Advertencia de contacto con suelo
+
+### Instalación y Ejecución
+
+```bash
+# Activar entorno virtual
+.venv\Scripts\activate
+
+# Instalar dependencias
+pip install -r codigo/requirements.txt
+
+# Ejecutar simulador
+cd codigo
+python verificar_mecanismo.py
+```
+
+### Dependencias
+- Python 3.13+
+- NumPy 1.24+
+- Matplotlib 3.8+
+- SciPy 1.16+
 
 ## 📖 Documentación
 
@@ -146,25 +232,69 @@ Evaluación según criterios establecidos.
 
 ## 🎯 Estado del Proyecto
 
+### ✅ Completado
 - [x] Estructura de carpetas creada
-- [x] Documentación inicial
-- [ ] Análisis cinemático en MATLAB
+- [x] Documentación inicial (README.md)
+- [x] Definición de geometría del mecanismo (7 barras, 3 puntos fijos)
+- [x] Simulador Python interactivo (`verificar_mecanismo.py`)
+- [x] Análisis cinemático con ecuaciones dinámicas
+- [x] Cálculo de velocidades analíticas (circuitos vectoriales)
+- [x] Interfaz gráfica con Dark Mode
+- [x] Sistema de animación y visualización
+- [x] Detección de contacto con suelo
+- [x] Informe LaTeX iniciado (2524 líneas)
+- [x] Diseño CAD parcial en SolidWorks (12 piezas)
+
+### 🔄 En Progreso
+- [ ] Análisis cinemático completo en MATLAB
 - [ ] Análisis cinético en MATLAB
-- [ ] Diseño CAD en SolidWorks
-- [ ] Fabricación del prototipo
+- [ ] Diseño CAD completo (ensambles y planos)
+- [ ] Informe técnico (secciones pendientes)
+
+### 📋 Pendiente
+- [ ] Fabricación del prototipo físico
 - [ ] Pruebas experimentales
-- [ ] Informe técnico final
-- [ ] Presentación
-- [ ] Competencia
+- [ ] Registro experimental (Excel)
+- [ ] Presentación PowerPoint (8 diapositivas)
+- [ ] Videos demostrativos
+- [ ] Competencia final
 
-## 📝 Convenciones de Código MATLAB
+## 📝 Convenciones de Código
 
+### Nomenclatura MATLAB
 ```matlab
-% Nomenclatura estándar del proyecto
-L1, L2, ..., L8           % Longitudes de eslabones (cm)
-theta1, theta2, ...       % Ángulos de articulaciones (rad)
-omega1, omega2, ...       % Velocidades angulares (rad/s)
-alpha1, alpha2, ...       % Aceleraciones angulares (rad/s²)
+% Longitudes de eslabones (cm)
+L_OA, L_AB, L_BF, L_BC    % Circuito inferior
+L_DE, L_EF, L_FG, L_EG    % Circuito superior (triángulo)
+
+% Ángulos de articulaciones (rad)
+theta_OA, theta_AB, theta_BC    % Circuito O-A-B-C
+theta_DE, theta_EF, theta_FG    % Circuito D-E-F-G
+
+% Velocidades angulares (rad/s)
+omega_OA, omega_AB, omega_BC    % Velocidades angulares del circuito inferior
+omega_DE, omega_EF, omega_FG    % Velocidades angulares del circuito superior
+
+% Aceleraciones angulares (rad/s²)
+alpha_OA, alpha_AB, alpha_BC
+alpha_DE, alpha_EF, alpha_FG
+
+% Puntos fijos
+O = [0.0, 0.0]          % Origen (anclaje manivela)
+C = [-4.3, -1.2]        % Anclaje secundario inferior
+D = [-2.0, 1.3]         % Anclaje superior
+```
+
+### Nomenclatura Python
+```python
+# Puntos del mecanismo
+O, A, B, C, D, E, F, G = ...  # Coordenadas (x, y)
+
+# Velocidades lineales
+v_A, v_B, v_E, v_F, v_G = ...  # Vectores [vx, vy]
+
+# Velocidades angulares de eslabones
+omega_AB, omega_BC, omega_DE, omega_EF, omega_FG = ...
 ```
 
 ## 📦 Entrega Final
@@ -177,12 +307,48 @@ Contenido:
 - `codigo/` → Scripts MATLAB comentados
 - `miscelaneos/` → Excel, PowerPoint, videos, fotos
 
+## 🔬 Metodología de Análisis
+
+### Análisis Cinemático (Ecuaciones Dinámicas)
+
+El simulador implementa el **método de circuitos vectoriales cerrados** derivando analíticamente las ecuaciones de restricción:
+
+1. **Posiciones**: Resolver sistema no lineal usando `scipy.optimize.fsolve`
+   ```python
+   # Ecuaciones de restricción para cada circuito
+   r_OA + r_AB + r_BC - r_OC = 0
+   r_DE + r_EF - r_DF = 0
+   r_EF + r_FG + r_GE = 0
+   ```
+
+2. **Velocidades**: Derivar ecuaciones de restricción y resolver sistema lineal (Jacobiano)
+   ```python
+   # Matriz jacobiana del circuito i
+   J_i = [[-L * sin(θ), ...],
+          [ L * cos(θ), ...]]
+   
+   # Resolver: J × ω = -v_conocida
+   ω = solve(J, -v)
+   ```
+
+3. **Aceleraciones**: Derivar ecuaciones de velocidad (segunda derivada)
+
+### Análisis Cinético (Newton-Euler)
+
+Pendiente de implementación en MATLAB:
+- Diagramas de cuerpo libre para cada eslabón
+- Ecuaciones de equilibrio dinámico
+- Fuerzas de reacción en articulaciones
+- Torque requerido en motor
+
 ## 📚 Referencias
 
 - Jansen, T. (2007). *The Great Pretender*. 010 Publishers.
 - Norton, R.L. (2011). *Diseño de Maquinaria*. McGraw-Hill.
+- Uicker, J.J. (2003). *Theory of Machines and Mechanisms*. Oxford.
 - Método de circuitos vectoriales para análisis cinemático
 - Ecuaciones de Newton-Euler para sistemas multicuerpo
+- SciPy Documentation: `scipy.optimize.fsolve` para sistemas no lineales
 
 ## 📧 Contacto
 
